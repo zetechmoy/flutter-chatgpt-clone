@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_chatgpt_clone/features/chat/domain/entities/chat_message_entity.dart';
+import 'package:flutter_chatgpt_clone/features/chat/presentation/widgets/custom_markdown.dart';
 import 'package:flutter_chatgpt_clone/features/global/const/app_const.dart';
 import 'package:flutter_chatgpt_clone/features/global/theme/style.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -10,7 +11,7 @@ import 'package:share_plus/share_plus.dart';
 
 class ChatMessageSingleItem extends StatelessWidget {
   final ChatMessageEntity chatMessage;
-  const ChatMessageSingleItem({Key? key, required this.chatMessage})
+  ChatMessageSingleItem({Key? key, required this.chatMessage})
       : super(key: key);
 
   @override
@@ -93,10 +94,13 @@ class ChatMessageSingleItem extends StatelessWidget {
         ),
       );
     } else {
+      Size size = MediaQuery.of(context).size;
       return Container(
-        padding: EdgeInsets.symmetric(vertical: 25, horizontal: 150),
-        child: Row(
+        padding: EdgeInsets.symmetric(
+            vertical: 25, horizontal: size.width < 789 ? 28 : 150),
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               height: 35,
@@ -114,7 +118,12 @@ class ChatMessageSingleItem extends StatelessWidget {
             SizedBox(
               width: 20,
             ),
-            Text(chatMessage.queryPrompt!),
+            // Text(chatMessage.queryPrompt!),
+            CustomMarkdownBody(
+              overflow: TextOverflow.fade,
+              selectable: true,
+              data: chatMessage.queryPrompt!,
+            ),
           ],
         ),
       );

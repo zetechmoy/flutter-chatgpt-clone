@@ -59,68 +59,71 @@ class _ConversationPageState extends State<ConversationPage> {
                     child: Container(
                   decoration:
                       BoxDecoration(color: Color.fromRGBO(52, 53, 64, 1)),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: BlocBuilder<ChatConversationCubit,
-                                ChatConversationState>(
-                            builder: (context, chatConversationState) {
-                          if (chatConversationState is ChatConversationLoaded) {
-                            final chatMessages = chatConversationState
-                                .chatMessages
-                                .where((element) =>
-                                    element.messageId != ChatGptConst.System)
-                                .toList();
+                  child: Container(
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: BlocBuilder<ChatConversationCubit,
+                                  ChatConversationState>(
+                              builder: (context, chatConversationState) {
+                            if (chatConversationState
+                                is ChatConversationLoaded) {
+                              final chatMessages = chatConversationState
+                                  .chatMessages
+                                  .where((element) =>
+                                      element.messageId != ChatGptConst.System)
+                                  .toList();
 
-                            if (chatMessages.isEmpty) {
-                              return ExampleWidget(
-                                onMessageController: (message) {
-                                  setState(() {
-                                    _messageController.value =
-                                        TextEditingValue(text: message);
-                                  });
-                                },
-                              );
-                            } else {
-                              return Container(
-                                child: ListView.builder(
-                                  itemCount: _calculateListItemLength(
-                                      chatMessages.length),
-                                  controller: _scrollController,
-                                  itemBuilder: (context, index) {
-                                    if (index >= chatMessages.length) {
-                                      return _responsePreparingWidget();
-                                    } else {
-                                      return ChatMessageSingleItem(
-                                        chatMessage: chatMessages[index],
-                                      );
-                                    }
+                              if (chatMessages.isEmpty) {
+                                return ExampleWidget(
+                                  onMessageController: (message) {
+                                    setState(() {
+                                      _messageController.value =
+                                          TextEditingValue(text: message);
+                                    });
                                   },
-                                ),
-                              );
+                                );
+                              } else {
+                                return Container(
+                                  child: ListView.builder(
+                                    itemCount: _calculateListItemLength(
+                                        chatMessages.length),
+                                    controller: _scrollController,
+                                    itemBuilder: (context, index) {
+                                      if (index >= chatMessages.length) {
+                                        return _responsePreparingWidget();
+                                      } else {
+                                        return ChatMessageSingleItem(
+                                          chatMessage: chatMessages[index],
+                                        );
+                                      }
+                                    },
+                                  ),
+                                );
+                              }
                             }
-                          }
-                          return ExampleWidget(
-                            onMessageController: (message) {
-                              setState(() {
-                                _messageController.value =
-                                    TextEditingValue(text: message);
-                              });
-                            },
-                          );
-                        }),
-                      ),
-                      CustomTextField(
-                        isRequestProcessing: _isRequestProcessing,
-                        textEditingController: _messageController,
-                        onTap: () async {
-                          _promptTrigger();
-                        },
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                    ],
+                            return ExampleWidget(
+                              onMessageController: (message) {
+                                setState(() {
+                                  _messageController.value =
+                                      TextEditingValue(text: message);
+                                });
+                              },
+                            );
+                          }),
+                        ),
+                        CustomTextField(
+                          isRequestProcessing: _isRequestProcessing,
+                          textEditingController: _messageController,
+                          onTap: () async {
+                            _promptTrigger();
+                          },
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                    ),
                   ),
                 ))
               ],
@@ -153,7 +156,7 @@ class _ConversationPageState extends State<ConversationPage> {
 
     final humanChatMessage = ChatMessageEntity(
       messageId: ChatGptConst.Human,
-      queryPrompt: _messageController.text,
+      queryPrompt: _messageController.text.replaceAll("```", "\n```\n"),
     );
 
     setState(() {
