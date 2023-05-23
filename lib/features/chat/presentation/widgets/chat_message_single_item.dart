@@ -25,9 +25,12 @@ class ChatMessageSingleItem extends StatelessWidget {
   }
 
   Widget _chatMessageItem(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     if (chatMessage.messageId == ChatGptConst.AIBot) {
       return Container(
-        padding: EdgeInsets.symmetric(vertical: 25, horizontal: 150),
+        padding: EdgeInsets.symmetric(
+            vertical: 25, horizontal: size.width < 789 ? 28 : 150),
         decoration: BoxDecoration(
           color: colorGrayLight,
         ),
@@ -94,11 +97,10 @@ class ChatMessageSingleItem extends StatelessWidget {
         ),
       );
     } else {
-      Size size = MediaQuery.of(context).size;
       return Container(
         padding: EdgeInsets.symmetric(
             vertical: 25, horizontal: size.width < 789 ? 28 : 150),
-        child: Column(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -119,10 +121,16 @@ class ChatMessageSingleItem extends StatelessWidget {
               width: 20,
             ),
             // Text(chatMessage.queryPrompt!),
-            CustomMarkdownBody(
-              overflow: TextOverflow.fade,
-              selectable: true,
-              data: chatMessage.queryPrompt!,
+            Expanded(
+              child: Stack(
+                children: <Widget>[
+                  Markdown(
+                    controller: ScrollController(),
+                    data: chatMessage.queryPrompt!,
+                    shrinkWrap: true,
+                  ),
+                ],
+              ),
             ),
           ],
         ),
