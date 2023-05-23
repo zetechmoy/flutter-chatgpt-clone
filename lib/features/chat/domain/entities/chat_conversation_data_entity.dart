@@ -1,19 +1,12 @@
-
-
-
 import 'package:equatable/equatable.dart';
+import 'package:flutter_chatgpt_clone/features/chat/data/models/chat_conversation_data.dart';
 
 class ChatConversationDataEntity extends Equatable {
+  final ChatConversationDataContent? message;
 
-  final String? text;
-  final num? index;
-  final String? finish_reason;
-
-  ChatConversationDataEntity({this.text, this.index, this.finish_reason});
+  ChatConversationDataEntity({this.message});
 
   @override
   // TODO: implement props
-  List<Object?> get props => [text,index,finish_reason];
-
-
+  List<Object?> get props => [message];
 }

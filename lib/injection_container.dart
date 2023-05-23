@@ -1,18 +1,13 @@
-
-
 import 'package:flutter_chatgpt_clone/features/chat/chat_injection_container.dart';
+import 'package:flutter_chatgpt_clone/features/global/http_client.dart';
 import 'package:get_it/get_it.dart';
-import 'package:http/http.dart' as http;
 
 final sl = GetIt.instance;
 
-Future<void> init()async{
+Future<void> init() async {
+  final CustomHttpClient httpClient = CustomHttpClient();
 
-
-  final http.Client httpClient = http.Client();
-
-  sl.registerLazySingleton<http.Client>(() => httpClient);
-
+  sl.registerLazySingleton<CustomHttpClient>(() => httpClient);
 
   await chatInjectionContainer();
 }

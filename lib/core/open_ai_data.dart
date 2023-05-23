@@ -1,8 +1,9 @@
+const String OPEN_AI_KEY = "...";
+const String authMethod = "Basic"; //Basic or Bearer
 
+const String baseURL = ".../v1";
 
+const String kOpenAIModel = "ggml-gpt4all-j-v1.3-groovy";
 
-const String OPEN_AI_KEY = "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";
-
-const String baseURL = "https://api.openai.com/v1";
-
-const String kOpenAIModel ="text-davinci-003";
+const String kInitModelSystemMessage =
+    "You are ChatGPT, a large language model trained by OpenAI. The user will ask you a question or give you a topic, and you will respond in a human-like way. Respond using complete sentences and try to stay on topic using Markdown.";

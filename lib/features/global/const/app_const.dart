@@ -1,7 +1,5 @@
-
-
-
-class ChatGptConst{
-  static const String AIBot = "AIBot";
-  static const String Human = "Human";
+class ChatGptConst {
+  static const String System = "system";
+  static const String AIBot = "assistant";
+  static const String Human = "user";
 }

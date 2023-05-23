@@ -1,6 +1,3 @@
-
-
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -9,8 +6,6 @@ import 'package:flutter_chatgpt_clone/features/chat/domain/entities/chat_message
 import 'package:flutter_chatgpt_clone/features/chat/presentation/cubit/chat_conversation/chat_conversation_cubit.dart';
 import 'package:flutter_chatgpt_clone/features/chat/presentation/widgets/chat_message_single_item.dart';
 import 'package:flutter_chatgpt_clone/features/chat/presentation/widgets/example_widget.dart';
-import 'package:flutter_chatgpt_clone/features/chat/presentation/widgets/left_nav_button_widget.dart';
-import 'package:flutter_chatgpt_clone/features/global/common/common.dart';
 import 'package:flutter_chatgpt_clone/features/global/const/app_const.dart';
 import 'package:flutter_chatgpt_clone/features/global/custom_text_field/custom_text_field.dart';
 
@@ -22,13 +17,10 @@ class ConversationPage extends StatefulWidget {
 }
 
 class _ConversationPageState extends State<ConversationPage> {
-
   TextEditingController _messageController = TextEditingController();
   bool _isRequestProcessing = false;
 
   ScrollController _scrollController = ScrollController();
-
-
 
   @override
   void initState() {
@@ -47,11 +39,10 @@ class _ConversationPageState extends State<ConversationPage> {
 
   @override
   Widget build(BuildContext context) {
-
     if (_scrollController.hasClients) {
       Timer(
         Duration(milliseconds: 100),
-            () => _scrollController.animateTo(
+        () => _scrollController.animateTo(
             _scrollController.position.maxScrollExtent,
             duration: Duration(milliseconds: 500),
             curve: Curves.decelerate),
@@ -64,7 +55,7 @@ class _ConversationPageState extends State<ConversationPage> {
           Expanded(
             child: Row(
               children: [
-                Container(
+                /*Container(
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   width: 300,
                   decoration: BoxDecoration(
@@ -120,79 +111,75 @@ class _ConversationPageState extends State<ConversationPage> {
                       ),
                     ],
                   ),
-                ),
+                ),*/
                 Expanded(
                     child: Container(
-                      decoration:
+                  decoration:
                       BoxDecoration(color: Color.fromRGBO(52, 53, 64, 1)),
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: BlocBuilder<ChatConversationCubit, ChatConversationState>(
-                                builder: (context, chatConversationState) {
-                                  if (chatConversationState is ChatConversationLoaded) {
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: BlocBuilder<ChatConversationCubit,
+                                ChatConversationState>(
+                            builder: (context, chatConversationState) {
+                          if (chatConversationState is ChatConversationLoaded) {
+                            final chatMessages = chatConversationState
+                                .chatMessages
+                                .where((element) =>
+                                    element.messageId != ChatGptConst.System)
+                                .toList();
 
-                                    final chatMessages =
-                                        chatConversationState.chatMessages;
-
-                                    if (chatMessages.isEmpty) {
-                                      return ExampleWidget(
-                                        onMessageController: (message) {
-                                          setState(() {
-                                            _messageController.value =
-                                                TextEditingValue(text: message);
-                                          });
-                                        },
-                                      );
+                            if (chatMessages.isEmpty) {
+                              return ExampleWidget(
+                                onMessageController: (message) {
+                                  setState(() {
+                                    _messageController.value =
+                                        TextEditingValue(text: message);
+                                  });
+                                },
+                              );
+                            } else {
+                              return Container(
+                                child: ListView.builder(
+                                  itemCount: _calculateListItemLength(
+                                      chatMessages.length),
+                                  controller: _scrollController,
+                                  itemBuilder: (context, index) {
+                                    if (index >= chatMessages.length) {
+                                      return _responsePreparingWidget();
                                     } else {
-                                      return Container(
-                                        child: ListView.builder(
-                                          itemCount: _calculateListItemLength(
-                                              chatMessages.length),
-                                          controller: _scrollController,
-                                          itemBuilder: (context, index) {
-                                            if (index >= chatMessages.length) {
-                                              return _responsePreparingWidget();
-                                            } else {
-                                              return ChatMessageSingleItem(
-                                                chatMessage: chatMessages[index],
-                                              );
-                                            }
-                                          },
-                                        ),
+                                      return ChatMessageSingleItem(
+                                        chatMessage: chatMessages[index],
                                       );
                                     }
-                                  }
-                                  return ExampleWidget(
-                                    onMessageController: (message) {
-                                      setState(() {
-                                        _messageController.value =
-                                            TextEditingValue(text: message);
-                                      });
-                                    },
-                                  );
-                                }),
-                          ),
-                          CustomTextField(
-                            isRequestProcessing: _isRequestProcessing,
-                            textEditingController: _messageController,
-                            onTap: () async {
-                              _promptTrigger();
+                                  },
+                                ),
+                              );
+                            }
+                          }
+                          return ExampleWidget(
+                            onMessageController: (message) {
+                              setState(() {
+                                _messageController.value =
+                                    TextEditingValue(text: message);
+                              });
                             },
-                          ),
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 90),
-                            child: Text(
-                              "ChatGPT Jan 30 Version. Free Research Preview. Our goal is to make AI systems more natural and safe to interact with. Your feedback will help us improve.",
-                              style: TextStyle(color: Colors.grey, fontSize: 13),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                        ],
+                          );
+                        }),
                       ),
-                    ))
+                      CustomTextField(
+                        isRequestProcessing: _isRequestProcessing,
+                        textEditingController: _messageController,
+                        onTap: () async {
+                          _promptTrigger();
+                        },
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  ),
+                ))
               ],
             ),
           )
@@ -200,7 +187,6 @@ class _ConversationPageState extends State<ConversationPage> {
       ),
     );
   }
-
 
   int _calculateListItemLength(int length) {
     if (_isRequestProcessing == false) {
@@ -227,22 +213,23 @@ class _ConversationPageState extends State<ConversationPage> {
       queryPrompt: _messageController.text,
     );
 
+    setState(() {
+      _messageController.clear();
+    });
+
     BlocProvider.of<ChatConversationCubit>(context)
         .chatConversation(
-        chatMessage: humanChatMessage,
-        onCompleteReqProcessing: (isRequestProcessing) {
-          setState(() {
-            _isRequestProcessing = isRequestProcessing;
-          });
-        })
+            chatMessage: humanChatMessage,
+            onCompleteReqProcessing: (isRequestProcessing) {
+              setState(() {
+                _isRequestProcessing = isRequestProcessing;
+              });
+            })
         .then((value) {
-      setState(() {
-        _messageController.clear();
-      });
       if (_scrollController.hasClients) {
         Timer(
           Duration(milliseconds: 100),
-              () => _scrollController.animateTo(
+          () => _scrollController.animateTo(
               _scrollController.position.maxScrollExtent,
               duration: Duration(milliseconds: 500),
               curve: Curves.decelerate),
