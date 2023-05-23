@@ -55,63 +55,6 @@ class _ConversationPageState extends State<ConversationPage> {
           Expanded(
             child: Row(
               children: [
-                /*Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  width: 300,
-                  decoration: BoxDecoration(
-                      boxShadow: glowBoxShadow, color: Colors.black87),
-                  child: Column(
-                    children: [
-                      Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.white, width: 1),
-                            borderRadius: BorderRadius.circular(10)),
-                        padding:
-                        EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                        child: Text(
-                          "+ New Chat",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                      Spacer(),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        height: 0.50,
-                        width: double.infinity,
-                        decoration: BoxDecoration(color: Colors.white70),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      LeftNavButtonWidget(
-                          iconData: Icons.delete_outline_outlined,
-                          textData: "Clear Conversation"),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      LeftNavButtonWidget(
-                          iconData: Icons.nightlight_outlined,
-                          textData: "Dark Mode"),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      LeftNavButtonWidget(
-                          iconData: Icons.ios_share_sharp,
-                          textData: "Update & FAQ"),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      LeftNavButtonWidget(
-                          iconData: Icons.exit_to_app, textData: "Log out"),
-                      SizedBox(
-                        height: 10,
-                      ),
-                    ],
-                  ),
-                ),*/
                 Expanded(
                     child: Container(
                   decoration:

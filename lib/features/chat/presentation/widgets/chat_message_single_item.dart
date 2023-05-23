@@ -114,16 +114,7 @@ class ChatMessageSingleItem extends StatelessWidget {
             SizedBox(
               width: 20,
             ),
-            Expanded(
-              child: Container(
-                margin: EdgeInsets.only(bottom: 10, top: 10),
-                child: MarkdownBody(
-                  // controller: ScrollController(),
-                  selectable: true,
-                  data: chatMessage.queryPrompt!,
-                ),
-              ),
-            ),
+            Text(chatMessage.queryPrompt!),
           ],
         ),
       );

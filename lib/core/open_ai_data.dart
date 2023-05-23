@@ -1,7 +1,10 @@
-const String OPEN_AI_KEY = "...";
+const String OPEN_AI_KEY = String.fromEnvironment('OPEN_AI_KEY',
+    defaultValue:
+        "YOU NEED TO SET YOUR OPEN AI KEY IN THE ENVIRONMENT VARIABLE");
 const String authMethod = "Basic"; //Basic or Bearer
 
-const String baseURL = ".../v1";
+const String baseURL = String.fromEnvironment('BASE_URL',
+    defaultValue: "https://api.openai.com/v1");
 
 const String kOpenAIModel = "ggml-gpt4all-j-v1.3-groovy";
 

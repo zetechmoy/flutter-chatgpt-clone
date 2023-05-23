@@ -51,3 +51,12 @@
 ### Created & Maintained By
 
 [@MA](https://github.com/amirk3321) , Youtube : [@eTechViral](https://www.youtube.com/c/eTechViral) , Twitter  : [@MA](https://twitter.com/__muhammad_amir)
+
+### Example of input
+You are a journalist and have to make summary of the following text:
+```Arizona, California and Nevada have agreed to take less water from the drought-strained Colorado River. 
+
+This is a breakthrough agreement that, for now, keeps the river from falling so low that it would jeopardize water supplies for major Western cities like Phoenix and Los Angeles as well as for some of America’s most productive farmland.
+```
+
+Summary:
