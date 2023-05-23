@@ -60,3 +60,10 @@ This is a breakthrough agreement that, for now, keeps the river from falling so 
 ```
 
 Summary:
+
+### Build
+```bash
+BASE_URL=https://xxx OPEN_AI_KEY=xxx bash deploy/build-web.sh
+ECR=registry.address.com/image-name bash deploy/build-web-docker-image.sh
+```
+

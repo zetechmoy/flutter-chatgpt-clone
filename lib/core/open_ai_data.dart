@@ -1,7 +1,8 @@
 const String OPEN_AI_KEY = String.fromEnvironment('OPEN_AI_KEY',
     defaultValue:
         "YOU NEED TO SET YOUR OPEN AI KEY IN THE ENVIRONMENT VARIABLE");
-const String authMethod = "Basic"; //Basic or Bearer
+const String authMethod = String.fromEnvironment('AUTH_METHOD',
+    defaultValue: "Basic"); //Basic or Bearer
 
 const String baseURL = String.fromEnvironment('BASE_URL',
     defaultValue: "https://api.openai.com/v1");
